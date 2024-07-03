@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import summary from "../../components/summary/summary.module.css"
-import billing from "./billing.module.css"
 import classNames from "classnames";
 import { PaymentMethods } from "../../components/paymentMethods/PaymentMethods";
 import { Summary } from "../../components/summary/Summary";
@@ -9,14 +8,22 @@ import { ThreeDots } from "react-loader-spinner";
 import { CheckoutContext } from "../../context/CheckoutContext";
 import { CartContext } from "../../context/CarritoContext";
 import { UserContext } from "../../context/UserContext";
-import { NavLink } from "react-router-dom";
 import { NoPaymentMethodsAdded } from "../../components/noPaymentMethodsAdded/NoPaymentMethodsAdded";
 
 export function Billing() {
   const { userToken, userCreditCards } = useContext(UserContext);
   const { selectedPaymentMethod, isLoading, setIsLoading, navigate } = useContext(CheckoutContext);
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const [addOrder, setAddOrder] = useState([]);
+
+  const handleButtonClickPayment = () => {
+    setCart([]);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate("/compra-exitosa");
+    }, 1500);
+  };
 
   const handleOrder = async (idProducto, cantidad) => {
     try {
@@ -40,27 +47,13 @@ export function Billing() {
         const data = await response.json();
         console.log('Compra realizada', data);
         setAddOrder(prev => [...prev, data]);
+        handleButtonClickPayment();
         return data;
       }
-
-      clearCart();
 
     } catch (error) {
       console.error('Error al realizar la compra:', error);
     }
-  };
-
-  const handleButtonClickPayment = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/compra-exitosa");
-    }, 1500);
-  };
-
-  const handleClick = () => {
-    handleButtonClickPayment();
-    handleOrder();
   };
 
   return (
@@ -82,7 +75,7 @@ export function Billing() {
                     { [summary['summary__button--disabled']]: !selectedPaymentMethod }
                   )}
                   type="primary"
-                  onClick={() => { handleClick(); }}
+                  onClick={() => { handleOrder(); }}
                   disabled={!selectedPaymentMethod}>
                   {isLoading ? (
                     <ThreeDots
