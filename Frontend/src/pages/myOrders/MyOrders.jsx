@@ -12,24 +12,27 @@ export function MyOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(
-          `https://edimarket.onrender.com/usuarios/usuario/ventas/?idUsuario=${user.id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${userToken}`,
-            },
+        if (userToken) {
+          const response = await fetch(
+            `https://edimarket.onrender.com/usuarios/usuario/ventas/?idUsuario=${user.id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userToken}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error fetching orders");
           }
-        );
+          const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error("Error fetching orders");
+          setOrders(data.ventas);
+          setLoading(false);
+        } else {
+          return;
         }
-
-        const data = await response.json();
-        setOrders(data.ventas);
-        setLoading(false);
       } catch (error) {
         console.error("Error:", error);
         setLoading(false);
@@ -37,7 +40,7 @@ export function MyOrders() {
     };
 
     fetchOrders();
-  }, [userToken]);
+  }, []);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -71,19 +74,18 @@ export function MyOrders() {
           <Loader />
         ) : (
           orders.map((order, index) => {
-            // Generar un número aleatorio único
-            const randomId = Math.floor(Math.random() * 1000000);
-
             return (
               <div
                 className={classNames(
                   "order_box flex flex-row",
                   myOrders.order__container
                 )}
-                key={`${randomId}_${index}`}
+                key={`${order.producto_id}_${index}`}
               >
                 <div>
-                  <h2 className="pb-2">Número de órden: #{`${randomId}`}</h2>
+                  <h2 className="pb-2">
+                    Número de órden: #{`${order.producto_id * 2}`}
+                  </h2>
                   <p>Fecha de la compra: {formatDate(order.fecha_venta)}</p>
                   <p className="font-semibold">
                     {formatearPrecio(order.valor_total)}

@@ -3,7 +3,7 @@ import { ProductCard } from "../../components/productCard/ProductCard";
 import { CartContext } from "../../context/CarritoContext";
 import { UserContext } from "../../context/UserContext";
 import "../fullCart/fullCart.css";
-import cartStyle from "../../pages/cart/cart.module.css"
+import cartStyle from "../../pages/cart/cart.module.css";
 import { Summary } from "../summary/Summary";
 import { GeneralBtn } from "../generalBtn/GeneralBtn";
 import classNames from "classnames";
@@ -50,11 +50,23 @@ export function FullCart() {
     <div className="fullcart__container pt-10">
       <h1 className="ml-5 mb-10">Tus productos</h1>
       <div className="flex mx-8 md:mx-8 lg:mx-28 flex-col md:flex-row">
-        <div className={classNames('w-full', 'md:w-2/3', 'p-4', cartStyle.cart_box)}>
+        <div
+          className={classNames(
+            "w-full",
+            "md:w-2/3",
+            "p-4",
+            cartStyle.cart_box
+          )}
+        >
           <div className="cart__cards__container">
             {cart.map((element) => (
               <ProductCard key={element.carro_id}>
-                <div className={classNames('cart__card__body', cartStyle.product_container)}>
+                <div
+                  className={classNames(
+                    "cart__card__body",
+                    cartStyle.product_container
+                  )}
+                >
                   <img
                     className="cart__card__img shadow-md"
                     src={element.imagen}
@@ -64,9 +76,16 @@ export function FullCart() {
                     <p className="card__card__paragraph text-md">
                       {element.nombre}
                     </p>
-                    <p className="font-semibold">{formatearPrecio(element.precio)}</p>
+                    <p className="font-semibold">
+                      {formatearPrecio(element.precio)}
+                    </p>
                   </div>
-                  <TbTrashXFilled onClick={() => handleDeleteProduct(element.producto_id, user.id) } className="cartmodal__trash__icon"/>
+                  <TbTrashXFilled
+                    onClick={() =>
+                      handleDeleteProduct(element.producto_id, user.id)
+                    }
+                    className="cartmodal__trash__icon"
+                  />
                 </div>
               </ProductCard>
             ))}
@@ -75,7 +94,10 @@ export function FullCart() {
         <div className="p-4 w-full md:w-1/3 bg-white m-0 md:ml-8">
           <Summary />
           <div>
-            <GeneralBtn type="primary" className={classNames('mt-8', cartStyle.summary__button)}>
+            <GeneralBtn
+              type="primary"
+              className={classNames("mt-8", cartStyle.summary__button)}
+            >
               <NavLink to="/shipping">Continuar compra</NavLink>
             </GeneralBtn>
           </div>

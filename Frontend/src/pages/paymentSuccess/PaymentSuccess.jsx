@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import ediFeliz from "../../../public/imgs/aplication/edi-feliz.svg";
 import { GeneralBtn } from "../../components/generalBtn/GeneralBtn";
 import "../paymentSuccess/paymentSuccess.css";
 
 export function PaymentSuccess() {
+  const navigate = useNavigate();
+
   return (
     <div className="paymentsucces__container py-10 flex flex-col items-center jusitfy-center">
       <div>
@@ -13,7 +16,14 @@ export function PaymentSuccess() {
         <img src={ediFeliz} alt="" className="h-64 mt-8 mb-10" />
       </div>
       <div>
-        <GeneralBtn type="primary">Seguir comprando</GeneralBtn>
+        <GeneralBtn
+          onClick={() => {
+            navigate("/");
+          }}
+          type="primary"
+        >
+          Seguir comprando
+        </GeneralBtn>
       </div>
     </div>
   );

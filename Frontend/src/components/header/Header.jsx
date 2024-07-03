@@ -5,26 +5,22 @@ import "react-image-gallery/styles/css/image-gallery.css";
 export function Header() {
   const images = [
     {
-      original: "/imgs/aplication/slider_1.png",
-      thumbnail: "/imgs/aplication/slider_1.png",
+      original: "/imgs/aplication/banner/hero1.jpg",
+      thumbnail: "/imgs/aplication/banner/hero1.jpg",
       originalHeight: 300, // Alto en píxeles
-      originalWidth: 400,  // Ancho en píxeles
+      originalWidth: 400, // Ancho en píxeles
     },
     {
-      original: "/imgs/aplication/slider_2.gif",
-      thumbnail: "/imgs/aplication/slider_2.gif",
+      original: "/imgs/aplication/banner/hero2.jpg",
+      thumbnail: "/imgs/aplication/banner/hero2.jpg",
     },
     {
-      original: "/imgs/aplication/slider_3.jpg",
-      thumbnail: "/imgs/aplication/slider_3.jpg",
+      original: "/imgs/aplication/banner/hero3.jpg",
+      thumbnail: "/imgs/aplication/banner/hero3.jpg",
     },
     {
-      original: "/imgs/aplication/slider_4.png",
-      thumbnail: "/imgs/aplication/slider_4.png",
-    },
-    {
-      original: "/imgs/aplication/slider_5.webp",
-      thumbnail: "/imgs/aplication/slider_5.webp",
+      original: "/imgs/aplication/banner/hero5.jpg",
+      thumbnail: "/imgs/aplication/banner/hero5.jpg",
     },
   ];
 

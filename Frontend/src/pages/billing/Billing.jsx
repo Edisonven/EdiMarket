@@ -9,19 +9,55 @@ import { ThreeDots } from "react-loader-spinner";
 import { CheckoutContext } from "../../context/CheckoutContext";
 import { CartContext } from "../../context/CarritoContext";
 import { UserContext } from "../../context/UserContext";
-import { NavLink } from "react-router-dom";
 import { NoPaymentMethodsAdded } from "../../components/noPaymentMethodsAdded/NoPaymentMethodsAdded";
 import { ProductContext } from "../../context/ProductContext";
 
 export function Billing() {
-  const { userToken, userCreditCards } = useContext(UserContext);
+  const { userToken, userCreditCards, handleAddedToCart } =
+    useContext(UserContext);
   const { selectedPaymentMethod, isLoading, setIsLoading, navigate } =
     useContext(CheckoutContext);
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const [addOrder, setAddOrder] = useState([]);
-  const { directBuy } = useContext(ProductContext);
+  const { directBuy, setDirectBuy } = useContext(ProductContext);
 
-  const handleOrder = async (idProducto, cantidad) => {
+  const handleDeleteUserProducts = async (usuario_id) => {
+    try {
+      if (userToken) {
+        for (const producto of cart) {
+          const response = await fetch(
+            `https://edimarket.onrender.com/carrito/${producto.producto_id}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userToken}`,
+              },
+              body: JSON.stringify({
+                usuario_id,
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(
+              errorData.message || "Error al eliminar del carrito"
+            );
+          }
+
+          const data = await response.json();
+          console.log("Producto eliminado:", data);
+        }
+
+        handleAddedToCart();
+      }
+    } catch (error) {
+      console.error("Error al eliminar del carrito:", error);
+    }
+  };
+  console.log(cart);
+  const handleOrder = async () => {
     try {
       for (const producto of cart) {
         const response = await fetch(`https://edimarket.onrender.com/venta`, {
@@ -41,17 +77,18 @@ export function Billing() {
         }
 
         const data = await response.json();
-        console.log("Compra realizada", data);
         setAddOrder((prev) => [...prev, data]);
-        return data;
       }
 
-      clearCart();
+      setDirectBuy(null);
+      setCart([]);
+      handleDeleteUserProducts();
+      handleAddedToCart();
     } catch (error) {
       console.error("Error al realizar la compra:", error);
     }
   };
-
+  console.log(cart);
   const handleButtonClickPayment = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -66,9 +103,9 @@ export function Billing() {
   };
 
   return (
-    <div className={classNames("pt-10" , billing.billing__container)}>
+    <div className={classNames("pt-10", billing.billing__container)}>
       {userCreditCards.length ? (
-        <div >
+        <div>
           <h1 className="mb-10 ml-5">¿Cómo quieres pagar?</h1>
           <div className="flex mx-8 md:mx-8 lg:mx-28 flex-col md:flex-row">
             <div className="delivery w-full md:w-2/3">

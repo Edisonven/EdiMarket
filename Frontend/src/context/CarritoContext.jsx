@@ -8,10 +8,6 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
 
-  const clearCart = () => {
-    setCart([]);
-  };
-
   const openModalCart = () => {
     if (!cartModal) {
       setCartModal(true);
@@ -25,9 +21,9 @@ export function CartProvider({ children }) {
   }, [navigate]);
 
   const formatearPrecio = (precio) => {
-    return new Intl.NumberFormat('es-CL', {
-      style: 'currency',
-      currency: 'CLP'
+    return new Intl.NumberFormat("es-CL", {
+      style: "currency",
+      currency: "CLP",
     }).format(precio);
   };
 
@@ -40,7 +36,6 @@ export function CartProvider({ children }) {
         cart,
         setCart,
         formatearPrecio,
-        clearCart
       }}
     >
       {children}
