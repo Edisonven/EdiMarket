@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import "../pagination/pagination.css";
-import { TbChevronRightPipe } from "react-icons/tb";
-import { TbChevronLeftPipe } from "react-icons/tb";
-import { TbChevronRight } from "react-icons/tb";
-import { TbChevronLeft } from "react-icons/tb";
+import {
+  TbChevronRightPipe,
+  TbChevronLeftPipe,
+  TbChevronRight,
+  TbChevronLeft,
+} from "react-icons/tb";
 import { ProductContext } from "../../context/ProductContext";
 
 export function Pagination() {
@@ -32,13 +34,22 @@ export function Pagination() {
     setPage(totalPages);
   };
 
+  const startItem = (page - 1) * limit + 1;
+  const endItem = Math.min(page * limit, totalProducts);
+
   return (
     <section className="pagination__container">
       <hr className="" />
       <div className="flex flex-col sm:flex-row items-center mt-2 gap-2">
-        <span className="text-sm">
-          items por página <span className="font-medium">{totalPage}</span>{" "}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-sm">
+            Items por página: <span className="font-medium">{totalPage}</span>{" "}
+          </span>
+          <span className="text-sm">
+            {startItem}-{endItem} de {totalProducts}
+          </span>
+        </div>
+
         <div className="flex items-center gap-1 sm:gap-3">
           <TbChevronLeftPipe
             onClick={handleFirstPage}
@@ -51,7 +62,6 @@ export function Pagination() {
             className={`pagination__arrow pagination__arrow__prev ${
               page === 1 ? "text-gray-400" : ""
             }`}
-            disabled={page === 1}
           />
           <span className="font-medium">{page}</span>
           <TbChevronRight
@@ -59,14 +69,12 @@ export function Pagination() {
             className={`pagination__arrow pagination__arrow__next ${
               page === totalPages ? "text-gray-400 hover:bg-none" : ""
             }`}
-            disabled={page === totalPages}
           />
           <TbChevronRightPipe
             onClick={handleLastPage}
             className={`pagination__arrow pagination__arrow__last ${
               page === totalPages ? "text-gray-400 hover:bg-none" : ""
             }`}
-            disabled={page === totalPages}
           />
         </div>
       </div>

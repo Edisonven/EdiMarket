@@ -2,7 +2,7 @@
 const prepHateoasProductos = (data, page,allProducts) => {
   page= parseInt(page);
   const results = data.map((item) => {
-    fecha_producto = item.fecha_producto.toISOString().split('T')[0];
+    fecha = item.fecha.toISOString().split('T')[0];
     return {
       nombre: item.nombre,
       vendedor: item.vendedor_id,
@@ -13,7 +13,7 @@ const prepHateoasProductos = (data, page,allProducts) => {
       id: item.producto_id,
       descripcion: item.descripcion,
       estado: item.estado,
-      fecha: fecha_producto
+      fecha: fecha
     };
   });
   const totalPerPage = results.length;
@@ -46,7 +46,7 @@ const prepHateoasCategorias = (data, page, categoria, allProducts) => {
   page= parseInt(page);
   
   const results = data.map((item) => {
-    fecha_producto = item.fecha_producto.toISOString().split('T')[0];
+    fecha = item.fecha.toISOString().split('T')[0];
     return {
       nombre: item.nombre,
       vendedor: item.vendedor_id,
@@ -57,7 +57,7 @@ const prepHateoasCategorias = (data, page, categoria, allProducts) => {
       id: item.producto_id,
       descripcion: item.descripcion,
       estado: item.estado,
-      fecha: fecha_producto
+      fecha: fecha
     };
   });
   const totalPerPage = results.length;

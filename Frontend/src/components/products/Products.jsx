@@ -5,7 +5,7 @@ import { Loader } from "../loader/Loader.jsx";
 import "../products/products.css";
 import { UserContext } from "../../context/UserContext.jsx";
 import { Pagination } from "../pagination/Pagination.jsx";
-import star from "/imgs/aplication/estrella.svg";
+import star from "/imgs/aplication/estrella.png";
 
 export function Products() {
   const { products, handleProductDetail, loading, page } =
@@ -54,7 +54,11 @@ export function Products() {
                       )}
                       <img
                         className="products__card__img"
-                        src={product?.imagen}
+                        src={
+                          product?.imagen
+                            ? product?.imagen
+                            : "/imgs/aplication/img-notfound.png"
+                        }
                         alt={product?.nombre}
                       />
                       <div className="products__card__desc__container px-4">
@@ -83,7 +87,11 @@ export function Products() {
                     <div className="products__card__img__container">
                       <img
                         className="products__card__img"
-                        src={product?.imagen}
+                        src={
+                          product?.imagen
+                            ? product?.imagen
+                            : "/imgs/aplication/img-notfound.png"
+                        }
                         alt={product?.nombre}
                       />
                       <div className="products__card__desc__container px-4">

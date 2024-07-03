@@ -58,7 +58,7 @@
   text-decoration: underline;
 }
 .login__form__input:focus ~ .login__form__input__paragraph,
-.login__form__input:valid ~ .login__form__input__paragraph {
+.login__form__input:not(:placeholder-shown) ~ .login__form__input__paragraph {
   transform: translate(-15px, -24px) scale(0.88);
 }
 .login__form__btn {

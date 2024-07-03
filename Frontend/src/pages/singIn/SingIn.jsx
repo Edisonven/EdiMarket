@@ -33,11 +33,14 @@ export function SingIn() {
   };
 
   const LoginWithCredentials = async (email, contraseña) => {
-    const response = await fetch("https://edimarket.onrender.com/usuarios/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, contraseña }),
-    });
+    const response = await fetch(
+      "https://edimarket.onrender.com/usuarios/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, contraseña }),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -117,6 +120,7 @@ export function SingIn() {
                 name="email"
                 onChange={handleChange}
                 value={userData.email}
+                placeholder=" "
                 className={`login__form__input  ${
                   inputFormError.errorEmail
                     ? "focus: outline-2 outline outline-red-600"
@@ -137,6 +141,7 @@ export function SingIn() {
               <input
                 ref={inputRefs.contraseña}
                 name="contraseña"
+                placeholder=" "
                 onChange={handleChange}
                 value={userData.contraseña}
                 className={`login__form__input  ${

@@ -198,8 +198,8 @@ const idCategoria = async (categoria) => {
 };
 
 const registrarProducto = async (producto, vendedor_id) => {
-  let { nombre, descripcion, estado, precio, stock, imagen, categoria } = producto;
-  //validarProducto.parse(producto);
+  let { nombre, descripcion, estado, precio, stock, imagen,categoria } = producto;
+  validarProducto.parse(producto);
   const categoriaId = await idCategoria(categoria);
   const id = Math.floor(Math.random() * 9999999);
   const valuesCategoria = [id, categoriaId];
@@ -216,7 +216,7 @@ const registrarProducto = async (producto, vendedor_id) => {
 
   console.log(nombre)
   const consultaProducto =
-  "INSERT INTO productos (id,nombre,descripcion,precio,stock,imagen,vendedor_id,estado,fecha_producto) VALUES ($1,$2,$3,$5,$6,$7,$8,$4,DEFAULT)";
+    "INSERT INTO productos (id,nombre,descripcion,precio,stock,imagen,vendedor_id,estado,fecha) VALUES ($1,$2,$3,$5,$6,$7,$8,$4,DEFAULT)";
   const consultaCategoria =
     "INSERT INTO producto_categoria (id,producto_id,categoria_id) VALUES (DEFAULT,$1,$2)";
   await db.query(consultaProducto, valuesProducto);

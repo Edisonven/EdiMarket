@@ -1,21 +1,17 @@
 .myOrders__container {
-  grid-area: unset;
+  grid-area: home;
   padding: 25px;
   margin: 60px auto;
   width: 100%;
   max-width: 1000px;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  z-index: 150;
 }
 
 .order__container {
-    justify-content: space-between;
-    border-bottom: 1px solid var(--purpleGray);
-    padding: 20px 10px
+  justify-content: space-between;
+  border-bottom: 1px solid var(--purpleGray);
+  padding: 20px 10px;
 }
 
 .order__container:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }

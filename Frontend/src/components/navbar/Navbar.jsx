@@ -143,7 +143,7 @@ export function Navbar({ navbarRef }) {
   }, [userToken]);
 
   return (
-    <nav ref={navbarRef} className="navbar__container shadow-sm">
+    <nav ref={navbarRef} className="navbar__container shadow">
       <OverlayScreen clicked={clicked} />
       <div className="navbar__logo__container">
         <div className="navbar__logo__section">

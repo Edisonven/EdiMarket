@@ -10,8 +10,8 @@ export function NoPaymentMethodsAdded() {
   }
 
   return (
-    <div className='pt-36 flex flex-col align-center justify-center'>
-      <div className='flex  flex-col justify-center align-center lg:m-96 md:m-80 m-20'>
+    <div className='flex flex-col align-center justify-center'>
+      <div className='flex flex-col justify-center align-center lg:mx-96 md:mx-80 mx-20'>
         <h1 className="mb-10 text-center">No has añadido ningún medio de pago :(</h1>
         <GeneralBtn type='primary' className="" onClick={handleAddCard}>
           Añadir tarjeta

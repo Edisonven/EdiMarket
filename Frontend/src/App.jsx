@@ -39,11 +39,16 @@ import { SearchProduct } from "./pages/searchProduct/SearchProduct.jsx";
 import { MyOrders } from "./pages/myOrders/MyOrders.jsx"
 import { NoAddressAdded } from "./components/noAddressAdded/NoAddressAdded.jsx";
 import { NoPaymentMethodsAdded } from "./components/noPaymentMethodsAdded/NoPaymentMethodsAdded.jsx";
+import { CartContext } from "./context/CarritoContext.jsx";
+import { ProductContext } from "./context/ProductContext.jsx";
 
 function App() {
   const { userToken } = useContext(UserContext);
   const location = useLocation();
   const navbarRef = useRef(null);
+
+  const { cart } = useContext(CartContext);
+  const { directBuy } = useContext(ProductContext);
 
   useEffect(() => {
     if (location.pathname === "/not-found") {
@@ -69,7 +74,8 @@ function App() {
           />
           <Route
             path="/billing"
-            element={userToken ? <Billing /> : <Navigate to="/sign-in" />}
+            element={userToken && (cart.length > 0 || directBuy !== null) ?
+              <Billing /> : <Navigate to="/sign-in" />}
           />
           <Route
             path="/compra-exitosa"
@@ -85,7 +91,8 @@ function App() {
           />
           <Route
             path="shipping"
-            element={userToken ? <Shipping /> : <Navigate to="/sign-in" />}
+            element={userToken && (cart.length > 0 || directBuy !== null) ?
+            <Shipping /> : <Navigate to="/sign-in" />}
           />
           <Route path="/" element={<Home />} />
           <Route

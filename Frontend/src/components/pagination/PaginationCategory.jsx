@@ -34,13 +34,21 @@ export function PaginationCategory({
     setPage(totalPages);
   };
 
+  const startItem = (page - 1) * limit + 1;
+  const endItem = Math.min(page * limit, totalProducts);
+
   return (
     <section className="pagination__container">
       <hr className="" />
       <div className="flex flex-col sm:flex-row items-center mt-2 gap-2">
-        <span className="text-sm">
-          items por página <span className="font-medium">{totalPage}</span>{" "}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-sm">
+            Items por página: <span className="font-medium">{totalPage}</span>{" "}
+          </span>
+          <span className="text-sm">
+            {startItem}-{endItem} de {totalProducts}
+          </span>
+        </div>
         <div className="flex items-center gap-1 sm:gap-3">
           <TbChevronLeftPipe
             onClick={handleFirstPage}

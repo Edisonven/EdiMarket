@@ -7,12 +7,11 @@ body {
 .app__container {
   display: grid;
   grid-template-areas:
-    "navbar"
     "header"
     "home"
     "footer";
   width: 100%;
-/*   grid-template-rows: 10px 1fr; */
+    grid-template-rows: 10px 1fr;
   min-width: 375px;
   background-color: var(--backgroundHomeColor);
   /* font-family: "Poppins", sans-serif;

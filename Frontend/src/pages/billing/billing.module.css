@@ -1,5 +1,9 @@
 .billing__container {
   grid-area: home;
+  padding: 25px;
+  margin: 60px auto;
+  width: 100%;
+  max-width: 1400px;
 }
 
 .shipping_box {
@@ -15,5 +19,6 @@
   border-bottom: none;
 }
 
-.shipping__container {
+/* .shipping__container {
 }
+ */

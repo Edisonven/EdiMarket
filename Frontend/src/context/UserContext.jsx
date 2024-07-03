@@ -77,6 +77,8 @@ export function UserProvider({ children }) {
   const { setLoading, setAddedToFav, addedToFav, setProductAlert } =
     useContext(ProductContext);
   const { setCart, cart } = useContext(CartContext);
+  const { setDirectBuy, setServerError, serverError } =
+    useContext(ProductContext);
 
   const inputRefs = {
     nombre: useRef(null),
@@ -171,10 +173,18 @@ export function UserProvider({ children }) {
             },
           }
         );
+        if (response.status === 500) {
+          setServerError((prevData) => ({
+            ...prevData,
+            myPostGetError:
+              "Ha ocurrido un error al obtener tus productos, intentalo de nuevo más tarde.",
+          }));
+        }
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || "Error al obtener domicilio");
+          throw new Error(errorData.message || "Error al obtener producto");
         }
+
         const data = await response.json();
         setMyProducts(data.productos);
         return data;
@@ -391,6 +401,7 @@ export function UserProvider({ children }) {
 
   const logout = () => {
     setUserToken(null);
+    setDirectBuy(null);
     navigate("/");
   };
 

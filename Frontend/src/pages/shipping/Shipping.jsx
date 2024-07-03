@@ -10,20 +10,24 @@ import { GeneralBtn } from "../../components/generalBtn/GeneralBtn";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { NoAddressAdded } from "../../components/noAddressAdded/NoAddressAdded";
+import { CartContext } from "../../context/CarritoContext";
+import { ProductContext } from "../../context/ProductContext";
 
 export function Shipping() {
   const { userAddress } = useContext(UserContext);
   const { selectedAddress, navigate } = useContext(CheckoutContext);
+  const { cart } = useContext(CartContext);
+  const { directBuy } = useContext(ProductContext);
 
   const handleButtonClickAdress = () => {
     navigate("/billing");
   };
 
   return (
-    <div>
+    <div className={classNames("pt-10", shipping.shipping_container)}>
       {userAddress.length ? (
-        <div className={classNames('pt-10', shipping.shipping_container)}>
-          <h1 className='ml-5 mb-10'>Elige dónde quieres recibir tu compra:</h1>
+        <div>
+          <h1 className="ml-5 mb-10">Elige dónde quieres recibir tu compra:</h1>
           <div className="shipping__container flex mx-8 md:mx-8 lg:mx-28 flex-col md:flex-row">
             <div className="delivery w-full md:w-2/3">
               <Adresses />
@@ -33,13 +37,16 @@ export function Shipping() {
               <div>
                 <GeneralBtn
                   type="primary"
-                  className={classNames(
-                    'mt-8',
-                    summary.summary__button,
-                    { [summary['summary__button--disabled']]: !selectedAddress }
-                  )}
+                  className={classNames("mt-8", summary.summary__button, {
+                    [summary["summary__button--disabled"]]:
+                      !selectedAddress ||
+                      (cart.length === 0 && directBuy === null),
+                  })}
                   onClick={handleButtonClickAdress}
-                  disabled={!selectedAddress}
+                  disabled={
+                    !selectedAddress ||
+                    (cart.length === 0 && directBuy === null)
+                  }
                 >
                   Continuar compra
                 </GeneralBtn>

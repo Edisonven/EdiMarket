@@ -32,11 +32,14 @@ export function SingUp() {
   };
 
   const registerNewUser = async (nombre, email, contraseña) => {
-    const response = await fetch("https://edimarket.onrender.com/usuarios/registro", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, email, contraseña }),
-    });
+    const response = await fetch(
+      "https://edimarket.onrender.com/usuarios/registro",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, email, contraseña }),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -153,6 +156,7 @@ export function SingUp() {
               <input
                 ref={inputRefs.nombre}
                 name="nombre"
+                placeholder=" "
                 onChange={handleChange}
                 value={userData.nombre}
                 className={`register__form__input ${
@@ -176,6 +180,7 @@ export function SingUp() {
             <div className="register__input__container">
               <input
                 ref={inputRefs.email}
+                placeholder=" "
                 name="email"
                 onChange={handleChange}
                 value={userData.email}
@@ -198,6 +203,7 @@ export function SingUp() {
             <div className="register__input__container">
               <input
                 ref={inputRefs.contraseña}
+                placeholder=" "
                 name="contraseña"
                 onChange={handleChange}
                 value={userData.contraseña}
@@ -232,6 +238,7 @@ export function SingUp() {
             </div>
             <div className="register__input__container">
               <input
+                placeholder=" "
                 ref={inputRefs.confirmContraseña}
                 name="confirmContraseña"
                 onChange={handleChange}

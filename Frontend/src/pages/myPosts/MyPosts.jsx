@@ -20,7 +20,7 @@ const ModalIcon = forwardRef((props, ref) => (
 ));
 
 export function MyPosts() {
-  const { loading, setLoading, handleProductDetail } =
+  const { loading, setLoading, handleProductDetail, serverError } =
     useContext(ProductContext);
   const { userToken, myProducts, getProductBySeller } = useContext(UserContext);
   const navigate = useNavigate();
@@ -111,12 +111,13 @@ export function MyPosts() {
       window.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
   return (
     <section className="myposts__container bg-white shadow-sm">
       <h1 className="text-2xl font-semibold mb-5">Mis publicaciones</h1>
       {loading ? (
         <Loader />
+      ) : serverError.myPostGetError ? (
+        <p>{serverError.myPostGetError}</p>
       ) : (
         <div className="myposts__body flex flex-col gap-5 h-full">
           {myProducts.length > 0 ? (
@@ -147,6 +148,7 @@ export function MyPosts() {
                     <p className="text-sm text-gray-400 mt-3">
                       Publicado en Edimarket
                     </p>
+                    <p className="text-sm text-gray-400 ">{product?.fecha}</p>
                   </div>
                 </div>
                 <div className="myposts__btn__container flex items-center gap-2">
@@ -242,7 +244,7 @@ export function MyPosts() {
           ) : (
             <div className="grid items-center justify-items-center gap-7">
               <span className="text-center text-2xl font-semibold">
-                Aún no haz publicado.
+                Aún no has publicado.
               </span>
               <p className=" text-center">
                 Cuando vendas tus publicaciones aparecerán aquí.

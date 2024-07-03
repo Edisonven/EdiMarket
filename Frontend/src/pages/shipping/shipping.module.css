@@ -1,31 +1,36 @@
 .shipping_container {
-    grid-area: home !important;
+  grid-area: home;
+  padding: 25px;
+  margin: 60px auto;
+  width: 100%;
+  max-width: 1400px;
 }
 
-.shipping_box, .billing_box {
-    background-color:var(--navbarColor);
-    border-radius: 8px;
+.shipping_box,
+.billing_box {
+  background-color: var(--navbarColor);
+  border-radius: 8px;
 }
 
 .delivery_type_container {
-    border-bottom: 1px solid #DAC6DF;
-    padding-bottom: 20px;
-    padding-top: 20px;
+  border-bottom: 1px solid #dac6df;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 .delivery_type_container_pickup {
-    padding-bottom: 20px;
-    padding-top: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 .delivery_type_container:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .delivery_type_container:first-child {
-    padding-top: 0;
+  padding-top: 0;
 }
 
 .shipping__container {
-    grid-area: none;
+  grid-area: none;
 }

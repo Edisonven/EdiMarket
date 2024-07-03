@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 export const ProductContext = createContext();
 
+const initialStateProduct = localStorage.getItem("directBuy")
+  ? JSON.parse(localStorage.getItem("directBuy"))
+  : null;
+
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [productById, setProductById] = useState(null);
@@ -22,6 +26,14 @@ export function ProductProvider({ children }) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
   const [totalProducts, setTotalProducts] = useState(0);
+  const [directBuy, setDirectBuy] = useState(initialStateProduct);
+  const [serverError, setServerError] = useState({
+    myPostGetError: "",
+  });
+
+  useEffect(() => {
+    localStorage.setItem("directBuy", JSON.stringify(directBuy));
+  }, [directBuy]);
 
   const [productAlert, setProductAlert] = useState({
     succes: "",
@@ -122,6 +134,11 @@ export function ProductProvider({ children }) {
       const data = await response.json();
       setProduct(data);
       setProductById(data);
+      setDirectBuy((prevData) => ({
+        ...prevData,
+        ...data,
+        cantidad: 1,
+      }));
     } catch (error) {
       console.error("Error al obtener productos:", error);
       navigate("/not-found");
@@ -183,6 +200,10 @@ export function ProductProvider({ children }) {
         limit,
         setLimit,
         totalProducts,
+        directBuy,
+        setDirectBuy,
+        serverError,
+        setServerError,
       }}
     >
       {children}
